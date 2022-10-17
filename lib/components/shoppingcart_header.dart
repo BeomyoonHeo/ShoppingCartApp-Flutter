@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopingcart/constants.dart';
 
 class ShoppingCartHeader extends StatefulWidget {
   const ShoppingCartHeader({Key? key}) : super(key: key);
@@ -48,23 +50,34 @@ class _ShoppingCartHeaderState extends State<ShoppingCartHeader> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _buildHeaderSelectorButton(0),
-        _buildHeaderSelectorButton(1),
-        _buildHeaderSelectorButton(2),
-        _buildHeaderSelectorButton(3),
+        _buildHeaderSelectorButton(0, Icons.directions_bike),
+        _buildHeaderSelectorButton(1, Icons.motorcycle),
+        _buildHeaderSelectorButton(2, CupertinoIcons.car_detailed),
+        _buildHeaderSelectorButton(3, CupertinoIcons.airplane),
       ],
     );
   }
 
-  Widget _buildHeaderSelectorButton(int id) {
-    return IconButton(
-      onPressed: () {
-        setState(() {
-          selectdid = id;
-        });
-      },
-      icon: Icon(Icons.directions_bike),
-      color: Colors.black,
+  Widget _buildHeaderSelectorButton(int id, IconData micon) {
+    // m을 붙혀서 커스텀 변수라는것을 알려줌
+    return Container(
+      width: 70,
+      height: 70,
+      decoration: BoxDecoration(
+        color: id == selectdid
+            ? kAccentColor
+            : kSecondaryColor, //색상사용시 앞에 k를 붙혀서 찾기 쉽게 만든다. - 컨벤션
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: IconButton(
+        onPressed: () {
+          setState(() {
+            selectdid = id;
+          });
+        },
+        icon: Icon(micon),
+        color: Colors.black,
+      ),
     );
   }
 }
